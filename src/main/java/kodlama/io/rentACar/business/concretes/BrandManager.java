@@ -50,10 +50,19 @@ public class BrandManager implements BrandService {
         this.brandRepository.deleteById(id);
     }
 
-//    @Override
-//    public void deleteByName(CreateBrandRequest createBrandRequest) {
-//        Brand theBrand = new Brand();
-//        theBrand.setName(createBrandRequest.getName());
-//        this.brandRepository.delete(theBrand);
-//    }
+    @Override
+    public void deleteByName(String brandName) throws Exception{
+        List<Brand> brands = brandRepository.findAll();
+        boolean brandNotFound = true;
+        for (Brand brandToDelete : brands) {
+            if (brandToDelete.getName().equalsIgnoreCase(brandName)){
+                this.brandRepository.delete(brandToDelete);
+                brandNotFound = false;
+                break;
+            }
+            if(brandNotFound){
+                throw new Exception("There is no such brand with this name --> " + brandName);
+            }
+        }
+    }
 }

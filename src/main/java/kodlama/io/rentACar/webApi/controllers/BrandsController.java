@@ -3,7 +3,6 @@ package kodlama.io.rentACar.webApi.controllers;
 import kodlama.io.rentACar.business.abstracts.BrandService;
 import kodlama.io.rentACar.business.requests.CreateBrandRequest;
 import kodlama.io.rentACar.business.responses.GetAllBrandsResponse;
-import kodlama.io.rentACar.entities.concretes.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +31,11 @@ public class BrandsController {
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable int id){
         this.brandService.deleteById(id);
+    }
+
+    @DeleteMapping("/deletebyname/{brandName}")
+    public void deleteByName(@PathVariable String brandName) throws Exception {
+        this.brandService.deleteByName(brandName);
     }
 
 }
